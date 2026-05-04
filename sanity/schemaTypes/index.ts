@@ -1,8 +1,7 @@
-
-import { shop } from './works'
-import { projects } from './projects'
+import { products } from './shop'
+import { caseStudy } from './project'
 
 export const schemaTypes = [
-  shop,
-  projects,
+  products,
+  caseStudy,
 ];

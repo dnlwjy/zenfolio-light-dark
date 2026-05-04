@@ -8,11 +8,15 @@ interface AProps {
 
 const A = ({
   title,
-  link = "#",
+  link = "",
   styles = ""
 }: AProps) => {
-  const wrapperStyles = `group inline-block relative ${styles}`
-  const isExternal = link ? /^(https?:)?\/\//.test(link) : false;
+  const wrapperStyles = `group inline-block w-fit relative ${styles}`
+
+  // Link Types
+  const internal = link.startsWith('/') && !link.startsWith('//');
+  const external = link.startsWith('http://') || link.startsWith('https://') || link.startsWith('//');
+  const TelOrMail = link.startsWith('tel:') || link.startsWith('mailto:')
 
   // JSX CONTENT
   const CONTENT = (
@@ -24,27 +28,48 @@ const A = ({
     </>
   )
 
-  if (isExternal) {
-    return (
-      <a
-        href={link}
-        target={"_blank"}
-        rel="noopener noreferrer"
-        className={wrapperStyles}
-      >
-        {CONTENT}
-      </a>
-    );
-  }
+  if (link) {
+    if (external) {
+      return (
+        <a
+          href={link}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={wrapperStyles}
+        >
+          {CONTENT}
+        </a>
+      );
+    };
 
-  return (
-    <Link
-      href={link}
-      className={wrapperStyles}
-    >
-      {CONTENT}
-    </Link>
-  )
+    if (internal) {
+      return (
+        <Link
+          href={link}
+          className={wrapperStyles}
+        >
+          {CONTENT}
+        </Link>
+      );
+    };
+
+    if (TelOrMail) {
+      return (
+        <a
+          href={link}
+          className={wrapperStyles}
+        >
+          {CONTENT}
+        </a>
+      );
+    };
+
+    return (
+      <span className={wrapperStyles}>
+        {CONTENT}
+      </span>
+    )
+  }
 }
 
 export default A;

@@ -25,8 +25,8 @@ const LinkButton = ({
 
     if (link) {
         // Link Types
-        const isInternal = link.startsWith('/') && !/^\/\//.test(link);
-        const isExternal = /^(https?:)?\/\//.test(link);
+        const isInternal = link.startsWith('/') && !link.startsWith('//')
+        const isExternal = link.startsWith('http://') || link.startsWith('https://') || link.startsWith('//')
         const isTelOrMail = link.startsWith('tel:') || link.startsWith('mailto:')
 
         if (isInternal) {
@@ -58,7 +58,7 @@ const LinkButton = ({
     // fallback disabled
     return (
         <span
-            className={`${wrapperStyles} text-(--divider)! pointer-events-none`}
+            className={`${wrapperStyles} text-(--divider)! cursor-not-allowed`}
         >
             {title}
         </span>

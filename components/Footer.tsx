@@ -23,12 +23,11 @@ const Footer = ({
                         title={e.name}
                         key={e.name}
                         link={e.link}
-                        styles="sm"
                     />
                 ))}
             </span>
 
-            <p className="sm text-center w-full">© {new Date().getFullYear()} Daniel Wijaya</p>
+            <small>© {new Date().getFullYear()} Daniel Wijaya</small>
         
         </footer>
     )

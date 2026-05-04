@@ -1,60 +1,63 @@
 import MotionDiv from "@/components/MotionDiv"
 import { client } from "@/sanity/lib/client"
-import { urlFor } from "@/sanity/lib/image"
 import Catalogue from "@/components/Catalogue"
 import ItemCard from '@/components/ItemCard'
+import { generateSEO } from "@/lib/seo"
+import type { Products } from "@/types/sanity.types"
 
 // 1. Rendering config: switched to SSG - better performance and SEO, but has to redeploy every time there's data change
 export const dynamic = 'force-static'
 
 // 2. metadata (SEO / head)
-export const metadata = {
-    title: "Works | Daniel Wijaya",
-    description: "Everything about my hobby, interests, code, and more...",
-}
+const description = "Pay once, forever yours, no monthly fees."
+export const metadata = generateSEO({
+    title: "Products | Daniel Wijaya",
+    description,
+    url: "/products",
+})
 
 // 3. queries
 const query = `*[_type == "shop"] | order(orderRank asc) {
     _id,
-    title,
-    slug,
-    tags,
-    coverImage,
     category,
-    price
+    coverImage,
+    title,
+    price,
+    slug
 }`
 
-export default async function Works() {
-    const works = await client.fetch(query)
+export default async function Products() {
+    const items = await client.fetch(query)
 
     return (
         <main>
             <section className="flex-col pt-40 gap-16">
 
                 <MotionDiv variant="up" styles="flex flex-col gap-6 items-center w-full">
-                    <h1 className="text-center">
-                        <span className="text-(--gray)">More of</span>
+                    <h1>
+                        <span className="text-(--gray)">Digital Products</span>
                         <br />
-                        My Works
+                        You Can Own
                     </h1>
-                    <p className="text-center">Everything about my hobby, interests, code, and more...</p>
+                    <p className="text-center">{description}</p>
                 </MotionDiv>
 
                 <MotionDiv variant="up" del={0.7} styles="flex flex-col gap-24 w-full">
-                    {works
-                        .filter((pass: any, index: number, self: any[]) =>
+                    {items
+                        .filter((pass: Products, index: number, self: Products[]) =>
                             pass.category && self.findIndex((e) => e.category === pass.category) === index
                         )
-                        .map((pass: any) => (
-                            <Catalogue key={pass.category} title={pass.category}>
-                                {works
-                                    .filter((e: any) => e.category === pass.category)
-                                    .map((e: any) => (
+                        .map((pass: Products) => (
+                            <Catalogue key={pass.category} title={pass.category!}>
+                                {items
+                                    .filter((e: Products) => e.category === pass.category)
+                                    .map((e: Products) => (
                                         <ItemCard
                                             key={e._id}
                                             title={e.title}
-                                            image={urlFor(e.coverImage).width(320).format("webp").url()}
-                                            link={`/works/${e.slug.current}`}
+                                            image={e.coverImage}
+                                            link={`/products/${e.slug!.current}`}
+                                            price={e.price}
                                         />
                                     ))}
                             </Catalogue>

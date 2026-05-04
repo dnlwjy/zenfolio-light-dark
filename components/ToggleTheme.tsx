@@ -115,7 +115,8 @@ const ToggleTheme = ({ styles = "" }: { styles?: string }) => {
                 </g>
             </svg>
             <span className="absolute top-full -mt-1 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-                <p className="text-[10px] text-(--gray) text-center">{isDark ? "Switch to Light " : "Switch to Dark"}
+                <p className="text-[10px] text-(--gray) text-center leading-[150%]">
+                    {isDark ? "Switch to Light " : "Switch to Dark"}
                     <br />
                     <span>(T)</span>
                 </p>

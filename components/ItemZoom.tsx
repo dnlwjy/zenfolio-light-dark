@@ -2,6 +2,7 @@
 
 import { withMagnifier } from "@/lib/withMagnifier"
 import Image from "next/image"
+import { itemShadow } from "./ItemCard"
 
 interface BaseImageProps {
     image: string
@@ -20,7 +21,7 @@ const BaseImage = ({
         alt={alt}
         fill
         sizes="(max-width: 680px) 90vw, 480px"
-        className={`object-contain select-none ${styles}`}
+        className={`object-contain select-none ${itemShadow} ${styles}`}
         onLoad={onLoad}
     />
 )

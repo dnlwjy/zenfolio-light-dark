@@ -7,29 +7,29 @@ import { Close } from '../../../components/IconLibrary'
 
 const CLOSE = <Close size={16} styles="text-white"/>
 
-interface ShopSupportProps {
+interface BtnSupportProps {
     checkoutURL: string
     previewURL?: string
+    price?: number
 }
 
-const BtnSupport = ({ checkoutURL, previewURL }: ShopSupportProps) => {
+const BtnSupport = ({ checkoutURL, previewURL, price }: BtnSupportProps) => {
+    const checkoutLabel = !price ? 'Get for Free' : `Get for $${price}`
     const [open, setOpen] = useState(false)
 
     withScrollLock(open)
 
     return (
         <>
-            <div className="flex flex-col sm:flex-row w-full gap-2 max-w-140">
+            <div className="flex flex-wrap w-full gap-3">
                 <Button
-                    title="Purchase"
+                    title={checkoutLabel}
                     additionalHoverLogic={open}
-                    styles="w-full"
                     click={() => setOpen(true)}
                 />
                 <Button
                     variant="secondary"
                     title="Preview"
-                    styles="w-full"
                     click={() => window.open(previewURL, "_blank")}
                 />
             </div>

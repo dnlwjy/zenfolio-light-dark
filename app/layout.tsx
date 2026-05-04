@@ -8,6 +8,7 @@ import { cookies } from "next/headers"
 import ThemeProvider from "@/context/ThemeProvider"
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://danielwijaya.com'),
   title: "Daniel Wijaya | UX Engineer",
   description: "Bridging design and code — from Figma and Framer to production-ready Next.js.",
   icons: {

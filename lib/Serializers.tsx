@@ -6,7 +6,7 @@ const serializers: PortableTextComponents = {
   block: {
     normal: ({ children }) => <p className="mb-5">{children}</p>,
     h1: ({ children }) => <h1>{children}</h1>,
-    h2: ({ children }) => <h2 className='mt-12 mb-4'>{children}</h2>,
+    h2: ({ children }) => <h2 className='text-start mt-12 mb-4'>{children}</h2>,
     h3: ({ children }) => <h3>{children}</h3>,
     blockquote: ({ children }) => (
       <blockquote className="my-8 pl-4 py-4 border-l-4 text-[20px] border-(--gray) text-(--white)">
@@ -26,12 +26,12 @@ const serializers: PortableTextComponents = {
     },
   },
   list: {
-    bullet: ({ children }) => <ul className="list-disc ml-6 mb-4"><p>{children}</p></ul>,
-    number: ({ children }) => <ol className="list-decimal ml-6 mb-4"><p>{children}</p></ol>,
+    bullet: ({ children }) => <ul className="list-disc ml-6 mb-4">{children}</ul>,
+    number: ({ children }) => <ol className="list-decimal ml-6 mb-4">{children}</ol>,
   },
   listItem: {
-    bullet: ({ children }) => <li className="mb-0"><p>{children}</p></li>,
-    number: ({ children }) => <li className="mb-0"><p>{children}</p></li>,
+    bullet: ({ children }) => <li className="mb-0">{children}</li>,
+    number: ({ children }) => <li className="mb-0">{children}</li>,
   },
   marks: {
     strong: ({ children }) => <strong>{children}</strong>,

@@ -22,13 +22,11 @@ export default meta
 
 export const variantsButton = {
   render: (args: any) => (
-    <div className="grid sm:grid-cols-3 grid-cols-1 gap-4">
+    <div className="grid sm:grid-cols-2 grid-cols-1 gap-4">
       <Button title="Primary" variant="primary" {...args} />
       <Button title="Secondary" variant="secondary" {...args} />
-      <Button title="Disabled" variant="disabled" {...args} />
       <Button title="Primary" variant="primary" icon={Home} {...args} />
       <Button title="Secondary" variant="secondary" icon={Home} {...args} />
-      <Button title="Disabled" variant="disabled" icon={Home} {...args} />
     </div>
   ),
   args: {},

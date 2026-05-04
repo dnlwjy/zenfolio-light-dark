@@ -1,21 +1,19 @@
 'use client'
 
 import { useRef, useEffect } from 'react'
-import MotionDiv from './MotionDiv'
-import LinkButton from './LinkButton'
 import { m, useScroll, useTransform, useSpring, useInView } from "framer-motion"
-import Divider from './Divider'
+import CaseStudyCard from './CaseStudyCard'
 
-interface ProjectsSectionProps {
+interface CaseStudySectionProps {
     title: string;
     description: string;
     link: string;
     video: string;
-    variant?: keyof typeof variantProjectsSection;
+    variant?: keyof typeof variantCaseStudySection;
     loopStart?: number;
 }
 
-const variantProjectsSection = {
+export const variantCaseStudySection = {
     "type A": {
         item1: "order-2 sm:order-1",
         item2: "order-1 sm:order-2",
@@ -32,14 +30,14 @@ const variantProjectsSection = {
 
 const springConfig = { stiffness: 132, damping: 60 }
 
-const ProjectsSection = ({
+const CaseStudySection = ({
     title,
     description,
     link,
     video,
     variant = "type A",
     loopStart = 0
-}: ProjectsSectionProps) => {
+}: CaseStudySectionProps) => {
     const sectionRef = useRef<HTMLDivElement>(null)
     const videoRef = useRef<HTMLVideoElement>(null)
     const visible = useInView(videoRef, { amount: 0 })
@@ -92,16 +90,17 @@ const ProjectsSection = ({
         <section ref={sectionRef} className="h-fit sm:h-[90vh] flex-col sm:flex-row items-start max-w-450 max-h-270 relative">
 
             {/* TEXT */}
-            <MotionDiv variant={variantProjectsSection[variant].direction} styles={`flex flex-col gap-5 w-full sm:w-[35%] z-10 ${variantProjectsSection[variant].item1}`}>
-                <Divider />
-                <h2>{title}</h2>
-                <p className="w-[90%]">{description}</p>
-                <LinkButton title="View Project" link={link} />
-            </MotionDiv>
+            <CaseStudyCard
+                title={title}
+                desc={description}
+                link={link}
+                variant={variantCaseStudySection[variant].direction}
+                styles={`w-full sm:w-[35%] ${variantCaseStudySection[variant].item1}`}
+            />
 
             {/* VIDEO */}
             <m.div
-                className={`w-full h-60 sm:flex-1 sm:h-full relative z-0 pointer-events-none ${variantProjectsSection[variant].item2}`}
+                className={`w-full h-60 sm:flex-1 sm:h-full relative z-0 pointer-events-none ${variantCaseStudySection[variant].item2}`}
                 style={{ y, opacity }}
             >
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 aspect-video w-[175%]">
@@ -119,4 +118,4 @@ const ProjectsSection = ({
     )
 }
 
-export default ProjectsSection
+export default CaseStudySection

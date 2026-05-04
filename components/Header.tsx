@@ -1,15 +1,15 @@
 'use client'
 
 import { m } from 'framer-motion'
-import { Home, Projects, Works, Contact } from './IconLibrary'
+import { Home, CaseStudy, Product, Contact } from './IconLibrary'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 
 const navItems = [
     { id: "Home", icon: Home, link: "/", left: "8px", key: "Q" },
-    { id: "Projects", icon: Projects, link: "/projects", left: "60px", key: "W" },
-    { id: "Works", icon: Works, link: "/works", left: "112px", key: "E" },
+    { id: "Case Studies", icon: CaseStudy, link: "/case-studies", left: "60px", key: "W" },
+    { id: "Products", icon: Product, link: "/products", left: "112px", key: "E" },
     { id: "Contact", icon: Contact, link: "/contact", left: "164px", key: "R" },
 ]
 
@@ -63,9 +63,9 @@ const Header = ({ styles = "" }: { styles?: string }) => {
                 <Link key={e.id} href={e.link}
                     className="group relative h-10 w-10 flex items-center justify-center">
                     <e.icon styles={`${active?.id === e.id ? "text-(--white)" : "text-(--gray) group-hover:text-(--white)"} transition-colors duration-300`} />
-                    <span className="absolute top-full mt-2 px-2 py-1 bg-(--divider) rounded whitespace-nowrap opacity-0 group-hover:opacity-100 -translate-y-4 group-hover:translate-y-0 transition-all duration-300 ease-in-out pointer-events-none select-none">
+                    <span className="flex items-center absolute top-full mt-2 px-2 h-6.5 bg-(--divider) rounded whitespace-nowrap opacity-0 group-hover:opacity-100 -translate-y-4 group-hover:translate-y-0 transition-all duration-300 ease-in-out pointer-events-none select-none">
                         <span className="absolute bottom-full left-1/2 -translate-x-1/2 w-3 h-2 bg-(--divider) [clip-path:polygon(50%_0%,0%_100%,100%_100%)]" />
-                        <p className="text-[12px]">{e.id}<span className="text-[10px] text-(--gray)"> ({e.key})</span></p>
+                        <p className="text-[12px] text-(--white)">{e.id}<span className="text-[10px] text-(--gray)"> ({e.key})</span></p>
                     </span>
                 </Link>
             ))}

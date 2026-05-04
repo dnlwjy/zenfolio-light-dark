@@ -47,7 +47,7 @@ const Button = ({
             onMouseEnter={() => setButtonHover(true)}
             onMouseLeave={() => setButtonHover(false)}
             className={`
-                    relative flex gap-3 items-center justify-center px-6 h-12 ${styles}
+                    relative flex gap-3 items-center justify-center px-8 h-12 ${styles}
                     ${variantButton[variant].base} ${variant === "disabled" ? "cursor-not-allowed" : "cursor-pointer"}
                     [clip-path:polygon(0_0,100%_0,100%_calc(100%-12px),calc(100%-12px)_100%,0_100%)]`}
         >

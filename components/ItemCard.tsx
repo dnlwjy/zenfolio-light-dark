@@ -4,12 +4,17 @@ import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { m } from 'framer-motion'
+import { logicPricing } from '@/lib/logicPricing'
+import type { Products } from '@/types/sanity.types'
+import { urlFor } from '@/sanity/lib/image'
 
-// all set to 'any' because we just pass the data from sanity directly
+export const itemShadow = "[filter:drop-shadow(0px_20px_16px_rgba(0,0,0,0.35))]"
+
 interface ItemCardProps {
-    title: any;
-    image: any;
-    link: any;
+    title: Products['title'];
+    image: Products['coverImage'];
+    link: string;
+    price: Products['price'];
     styles?: string
 }
 
@@ -17,6 +22,7 @@ const ItemCard = ({
     title,
     image,
     link,
+    price,
     styles = ""
 }: ItemCardProps) => {
     const [hovered, setHovered] = useState(false)
@@ -30,20 +36,23 @@ const ItemCard = ({
         >
             <div className="flex flex-1 items-center justify-center">
                 <m.div
-                    className="w-[70%] aspect-square relative"
+                    className="sm:w-[70%] w-[85%] aspect-square relative"
                     animate={{ scale: hovered ? 1.1 : 1 }}
                 >
                     <Image
-                        src={image}
-                        alt={title}
+                        src={urlFor(image!).width(360).format("webp").url()}
+                        alt={title ?? ""}
                         fill
                         sizes="(max-width: 680px) 35vw, (max-width: 1080px) 25vw, 350px"
-                        className="object-contain"
+                        className={`object-contain ${itemShadow}`}
                     />
                 </m.div>
             </div>
 
-            <p className="tag line-clamp-2 p-3 sm:p-4 lg:p-5">{title}</p>
+            <div className="p-3 sm:p-4 lg:p-5 flex justify-between items-end gap-2">
+                <p className="tag line-clamp-2">{title}</p>
+                <p className="tag">{logicPricing(price)}</p>
+            </div>
         </Link>
     )
 }

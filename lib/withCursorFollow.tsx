@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import type { ComponentType } from "react"
 import { m, useMotionValue, useSpring } from "framer-motion"
 
@@ -11,6 +11,11 @@ const settings = {
     intensity: 0.1, // Effect intensity: higher values = stronger effect
 }
 
+const springConfig = {
+    damping: settings.damping,
+    stiffness: settings.stiffness,
+}
+
 export const withCursorFollow = <P extends object>(Component: ComponentType<P>): ComponentType<P> => {
     return (props: P) => {
         const x = useMotionValue(0)
@@ -18,12 +23,7 @@ export const withCursorFollow = <P extends object>(Component: ComponentType<P>):
         const [componentRef, setComponentRef] = useState<HTMLDivElement | null>(
             null
         )
-        const [isInView, setIsInView] = useState(false)
-
-        const springConfig = {
-            damping: settings.damping,
-            stiffness: settings.stiffness,
-        }
+        const isInView = useRef(false)
         const springX = useSpring(x, springConfig)
         const springY = useSpring(y, springConfig)
 
@@ -54,7 +54,7 @@ export const withCursorFollow = <P extends object>(Component: ComponentType<P>):
             }
 
             const handleMouseMove = (e: MouseEvent) => {
-                if (isInView) {
+                if (isInView.current) {
                     calculateDistance(e)
                 }
             }
@@ -64,13 +64,13 @@ export const withCursorFollow = <P extends object>(Component: ComponentType<P>):
             return () => {
                 document.removeEventListener("mousemove", handleMouseMove)
             }
-        }, [componentRef, isInView, x, y])
+        }, [componentRef, x, y])
 
         useEffect(() => {
             const observer = new IntersectionObserver(
                 (entries) => {
                     entries.forEach((entry) => {
-                        setIsInView(entry.isIntersecting)
+                        isInView.current = entry.isIntersecting
                     })
                 },
                 {

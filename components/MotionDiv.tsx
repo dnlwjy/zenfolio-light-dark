@@ -9,7 +9,7 @@ interface MotionDivProps {
     styles?: string;
 }
 
-const variantMotionDiv = {
+export const variantMotionDiv = {
     up: { x: 0, y: 24 },
     down: { x: 0, y: -24 },
     left: { x: -100, y: 0 },

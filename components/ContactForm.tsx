@@ -20,13 +20,13 @@ type StatusType = 'idle' | 'sending' | 'success' | 'error'
 function logicSubmitButton(a: StatusType) {
     if (a === 'sending') return 'Sending...'
     if (a === 'success') return 'Sent !'
-    if (a === 'error') return 'Please check your input and try again.'
+    if (a === 'error') return 'Something wrong...'
     return 'Send Message'
 }
 
 const RECAPTCHA_SITE_KEY = envPublic.NEXT_PUBLIC_RECAPTCHA_SITE_KEY
 
-const peerInput = "peer pt-9 pb-4 placeholder-transparent"
+const peerInput = "peer pt-8.5 pb-3.5 placeholder-transparent"
 const peerLabel = `absolute left-3 top-9 text-(--divider) transition-all duration-300 pointer-events-none
                    peer-focus:top-2 peer-focus:text-xs peer-focus:text-(--gray)
                    peer-[&:not(:placeholder-shown)]:top-2 peer-[&:not(:placeholder-shown)]:text-xs peer-[&:not(:placeholder-shown)]:text-(--gray)`
@@ -142,7 +142,7 @@ const ContactForm = ({ styles = "" }: { styles?: string }) => {
                     value={form.message}
                     onChange={handleChange}
                     required
-                    rows={6}
+                    rows={5}
                     aria-label="Your message"
                     aria-required="true"
                     autoComplete="off"
@@ -154,7 +154,6 @@ const ContactForm = ({ styles = "" }: { styles?: string }) => {
                 >
                     Your Message
                 </label>
-                <small className="text-(--gray)">Message must be between 50 and 500 characters.</small>
             </div>
             {/* --- reCAPTCHA --- */}
             <div className="flex justify-start mt-4">

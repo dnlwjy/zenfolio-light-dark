@@ -1,6 +1,6 @@
 import MotionDiv from '../../components/MotionDiv'
 import { client } from '../../sanity/lib/client'
-import CaseStudyCard from '../../components/CaseStudyCard'
+import TitleCard from '../../components/TitleCard'
 import { generateSEO } from '@/lib/seo'
 import type { Projects } from '@/types/sanity.types'
 
@@ -12,7 +12,7 @@ const description = "Archive of client-based projects from 2024 onward."
 export const metadata = generateSEO({
     title: "Case Studies | Daniel Wijaya",
     description,
-    url: "/case-studies",
+    url: "/case-study",
 })
 
 // 3. queries
@@ -44,12 +44,12 @@ export default async function CaseStudies() {
 
                 <div className={listStyles}>
                     {caseStudies.map((e: Projects) => (
-                        <CaseStudyCard
+                        <TitleCard
                             key={e._id}
                             title={e.title}
                             desc={e.description}
                             year={e.year}
-                            link={`/case-studies/${e.slug!.current}`}
+                            link={`/case-study/${e.slug!.current}`}
                             longDivider
                             styles="w-full"
                         />

@@ -1,33 +1,36 @@
-import A from './A'
+import { IG, LI, Github } from "./IconLibrary";
 
 interface FooterProps {
     styles?: string;
 }
 
 const socialMedia = [
-    { name: "Instagram", link: "https://www.instagram.com/dnlwjy_/" },
-    { name: "LinkedIn", link: "https://www.linkedin.com/in/dnlwjy/" },
-    { name: "GitHub", link: "https://github.com/dnlwjy" },
-    { name: "Spotify", link: "https://open.spotify.com/artist/0VyiZOjAOfYc0gV7EbT4v0" },
+    { name: "Instagram", link: "https://www.instagram.com/dnlwjy_/", icon: <IG styles="text-(--gray) hover:text-(--white) transition-colors duration-300" /> },
+    { name: "LinkedIn", link: "https://www.linkedin.com/in/dnlwjy/", icon: <LI styles="text-(--gray) hover:text-(--white) transition-colors duration-300" /> },
+    { name: "GitHub", link: "https://github.com/dnlwjy", icon: <Github styles="text-(--gray) hover:text-(--white) transition-colors duration-300" /> },
 ]
 
 const Footer = ({
     styles = "",
 }: FooterProps) => {
     return (
-        <footer className={`flex flex-col gap-16 py-16 px-5 w-full items-center ${styles}`}>
+        <footer className={`flex flex-col gap-16 py-20 px-5 w-full items-center ${styles}`}>
             
             <span className="flex flex-wrap gap-6 items-center justify-center">
                 {socialMedia.map((e) => (
-                    <A
-                        title={e.name}
+                    <a
                         key={e.name}
-                        link={e.link}
-                    />
+                        href={e.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:text-(--white) transition-colors duration-300"
+                    >
+                        {e.icon}
+                    </a>
                 ))}
             </span>
 
-            <small>© {new Date().getFullYear()} Daniel Wijaya</small>
+            <span className="tag">© {new Date().getFullYear()} Daniel Wijaya</span>
         
         </footer>
     )

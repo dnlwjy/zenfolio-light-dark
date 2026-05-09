@@ -1,15 +1,15 @@
 'use client'
 
 import { m } from 'framer-motion'
-import { Home, CaseStudy, Product, Contact } from './IconLibrary'
+import { Home, About, Builds, Contact } from './IconLibrary'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 
 const navItems = [
     { id: "Home", icon: Home, link: "/", left: "8px", key: "Q" },
-    { id: "Case Studies", icon: CaseStudy, link: "/case-studies", left: "60px", key: "W" },
-    { id: "Products", icon: Product, link: "/products", left: "112px", key: "E" },
+    { id: "About", icon: About, link: "/about", left: "60px", key: "W" },
+    { id: "Builds", icon: Builds, link: "/builds", left: "112px", key: "E" },
     { id: "Contact", icon: Contact, link: "/contact", left: "164px", key: "R" },
 ]
 

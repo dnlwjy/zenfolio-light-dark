@@ -11,7 +11,6 @@ interface LoadingScreenProps {
 
 export default function LoadingScreen({ videos, children }: LoadingScreenProps) {
     const [ready, setReady] = useState(false)
-    const [overlay, setOverlay] = useState(true)
     const videoSrcs = useRef(videos)
 
     // Restore loaded state before browser paint to avoid flash on return navigation
@@ -75,11 +74,10 @@ export default function LoadingScreen({ videos, children }: LoadingScreenProps) 
 
     return (
         <main>
-            {overlay && (
+            {!ready && (
                 <div
                     className={`fixed inset-0 z-9999 bg-(--black) flex items-center justify-center transition-opacity duration-300 ${ready ? "opacity-0 pointer-events-none" : "opacity-100"}`}
                     aria-hidden={ready}
-                    onTransitionEnd={() => setOverlay(false)}
                 >
                         <svg
                             width="52" height="52" viewBox="0 0 52 52"

@@ -13,7 +13,7 @@ interface CaseStudyProps {
     styles?: string
 }
 
-export const CaseStudyCard = ({
+export const TitleCard = ({
     title,
     desc,
     year,
@@ -36,4 +36,4 @@ export const CaseStudyCard = ({
     </MotionDiv>
 )
 
-export default CaseStudyCard
+export default TitleCard

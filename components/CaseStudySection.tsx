@@ -2,7 +2,7 @@
 
 import { useRef, useEffect } from 'react'
 import { m, useScroll, useTransform, useSpring, useInView } from "framer-motion"
-import CaseStudyCard from './CaseStudyCard'
+import TitleCard from './TitleCard'
 
 interface CaseStudySectionProps {
     title: string;
@@ -90,7 +90,7 @@ const CaseStudySection = ({
         <section ref={sectionRef} className="h-fit sm:h-[90vh] flex-col sm:flex-row items-start max-w-450 max-h-270 relative">
 
             {/* TEXT */}
-            <CaseStudyCard
+            <TitleCard
                 title={title}
                 desc={description}
                 link={link}

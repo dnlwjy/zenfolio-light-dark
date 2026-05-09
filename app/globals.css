@@ -26,7 +26,7 @@
   --black: #121212;
   --divider: #444444;
   --gray: #8E8E8E;
-  --bodytext: #999999;
+  --bodytext: #8F8F8F;
   --white: #FFFFFF;
 }
 
@@ -34,7 +34,7 @@
   --black: #EEEEEE;
   --divider: #CCCCCC;
   --gray: #8E8E8E;
-  --bodytext: #6C6C6C;
+  --bodytext: #7E7E7E;
   --white: #000000;
 }
 
@@ -63,15 +63,16 @@ section {
   @apply flex px-5 py-16 sm:px-12 sm:py-32 md:p-32 gap-8 items-center justify-center w-full;
 }
 section.sm {
-  @apply flex-col pt-40 gap-24 max-w-400;
+  @apply flex-col pt-50 gap-24 max-w-400;
 }
 
-h1, h2 {
+h1, h2, h3 {
   font-family: "playfair", serif;
   @apply text-center text-(--white) leading-[1.1];
 }
 h1 { @apply lg:text-[96px] sm:text-[72px] text-[48px]; }
-h2 { @apply lg:text-[40px] sm:text-[32px] text-[24px]; }
+h2 { @apply lg:text-[40px] sm:text-[32px] text-[28px]; }
+h3 { @apply lg:text-[20px]; }
 
 a { @apply text-(--white) hover:text-(--gray) transition-colors duration-300; }
 
@@ -83,5 +84,5 @@ input, textarea {
 }
 
 /* utility styling */
-@utility btn-text { @apply uppercase lg:text-[16px] text-[14px] tracking-[0.35em] text-(--white); }
+@utility btn-text { @apply uppercase lg:text-[16px] text-[14px] leading-[120%] tracking-[0.35em] text-(--white); }
 @utility tag { @apply uppercase sm:text-[12px] text-[11px] leading-[150%] text-start tracking-[0.15em] text-(--bodytext); }

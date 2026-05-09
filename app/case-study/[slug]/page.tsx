@@ -3,7 +3,7 @@ import SubInfo from '@/components/SubInfo'
 import { client } from '../../../sanity/lib/client'
 import { PortableText } from "@portabletext/react"
 import Serializers from "@/lib/Serializers"
-import CaseStudyCard from '../../../components/CaseStudyCard'
+import TitleCard from '../../../components/TitleCard'
 import { notFound } from 'next/navigation'
 import { listStyles } from '../page'
 import { generateSEO } from '@/lib/seo'
@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
         title: `${data.title} | Daniel Wijaya`,
         description: data.description ?? "",
         image: data.coverImage ? urlFor(data.coverImage).width(1200).height(630).url() : undefined,
-        url: `/case-studies/${slug}`,
+        url: `/case-study/${slug}`,
     })
 }
 
@@ -100,12 +100,12 @@ export default async function CaseStudyDetail({ params }: { params: Promise<{ sl
             <section id="more-case-studies" className="sm">
                 <div className={listStyles}>
                     {moreCaseStudies.map((e: Projects) => (
-                        <CaseStudyCard
+                        <TitleCard
                             key={e._id}
                             title={e.title}
                             desc={e.description}
                             year={e.year}
-                            link={`/case-studies/${e.slug!.current}`}
+                            link={`/case-study/${e.slug!.current}`}
                             longDivider
                             styles="w-full"
                         />

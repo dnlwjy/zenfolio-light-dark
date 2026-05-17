@@ -1,13 +1,15 @@
 type SEOProps = {
   title: string
-  description: string
+  description?: string
   image?: string
   url?: string
 }
 
+const DEFAULT_DESCRIPTION = "Bridging design and code — from Figma and Framer to production-ready Next.js."
+
 export function generateSEO({
   title,
-  description,
+  description = DEFAULT_DESCRIPTION,
   image = "/og-default.jpg",
   url = "",
 }: SEOProps) {

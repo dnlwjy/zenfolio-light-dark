@@ -1,67 +1,156 @@
-import MotionDiv from "@/components/MotionDiv"
-import { client } from "@/sanity/lib/client"
-import Catalogue from "@/components/Catalogue"
-import ItemCard from '@/components/ItemCard'
-import { generateSEO } from "@/lib/seo"
-import type { Products } from "@/types/sanity.types"
+import MotionDiv from '../../components/MotionDiv'
+import { client } from '../../sanity/lib/client'
+import { generateSEO } from '@/lib/seo'
+import type { Shop } from '@/types/sanity.types'
+import ItemZoom from "@/components/ItemZoom"
+import Image from 'next/image'
+import { urlFor } from "@/sanity/lib/image"
+import Divider from '../../components/Divider'
+import LinkButton from '@/components/LinkButton'
 
 // 1. Rendering config: switched to SSG - better performance and SEO, but has to redeploy every time there's data change
 export const dynamic = 'force-static'
 
 // 2. metadata (SEO / head)
-const description = "Pay once, forever yours, no monthly fees."
+const description = "Things I've Built in the past"
 export const metadata = generateSEO({
-    title: "Products | Daniel Wijaya",
+    title: "Builds | Daniel Wijaya",
     description,
-    url: "/products",
+    url: "/builds",
 })
 
 // 3. queries
-const query = `*[_type == "shop"] | order(orderRank asc) {
+const query = `*[_type == "shop"] | order(year desc, orderRank asc) {
     _id,
-    category,
-    coverImage,
     title,
-    price,
-    slug
+    description,
+    coverImage,
+    year,
+    preview,
+    marketplaceURL,
+    slug,
+    featured,
 }`
 
-export default async function Products() {
-    const items = await client.fetch(query)
+export default async function Builds() {
+    const builds = await client.fetch(query)
+    const featured = builds.find((e: Shop) => e.featured) as Shop
+    const nonFeatured: Shop[] = builds.filter((e: Shop) => !e.featured)
 
     return (
         <main>
-            <section className="flex-col pt-40 gap-16">
+            <section className="md:flex-row flex-col md:items-start items-center gap-24 max-w-520 md:p-0 sm:px-12 px-6">
 
-                <MotionDiv variant="up" styles="flex flex-col gap-6 items-center w-full">
-                    <h1>
-                        <span className="text-(--gray)">Digital Products</span>
-                        <br />
-                        You Can Own
-                    </h1>
-                    <p className="text-center">{description}</p>
+                {/* NON FEATURED */}
+                <MotionDiv styles="flex flex-col flex-1 gap-4 max-w-240 w-full py-32 md:pl-32 pl-0 md:order-1 order-2">
+                    <span className="btn-text text-(--gray)">{description}</span>
+
+                    {nonFeatured.map((e) => (
+                        <div key={e._id} className="flex flex-col gap-4 pb-8 sm:items-center items-start">
+
+                            <Divider styles="w-full mb-4" title={e.year} />
+
+
+                            <div className="flex flex-wrap items-center gap-8 w-full">
+
+                                {/* IMAGE */}
+                                <div className="flex items-center justify-center border border-(--divider) bg-(--white)/7 aspect-square h-60">
+                                    <div className="w-[80%] aspect-square relative">
+                                        <Image
+                                            src={urlFor(e.coverImage!).format("webp").url()}
+                                            alt={e.title ?? ""}
+                                            fill
+                                            sizes="(max-width: 680px) 35vw, (max-width: 1080px) 25vw, 350px"
+                                            className="object-contain filter-[drop-shadow(0px_20px_16px_rgba(0,0,0,0.35))]"
+                                        />
+                                    </div>
+                                </div>
+
+                                {/* TITLE CARD */}
+                                <div className="flex flex-col gap-8 z-10 flex-1">
+                                    <div className="flex flex-col gap-4">
+                                        <h3 className="text-start">{e.title}</h3>
+                                        <p className="line-clamp-4 text-[18px] leading-[160%]">{e.description}</p>
+                                    </div>
+
+                                    <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
+                                        <LinkButton title="Preview" link={e.preview} styles="text-[14px]" />
+                                        {e.marketplaceURL && (
+                                            <>
+                                                <svg xmlns="http://www.w3.org/2000/svg" className="w-2.25" fill="currentColor" viewBox="-1 -1 7 12"><path stroke="var(--gray)" strokeWidth=".5" d="M.826 9.949H0L3.318.05h.826z" /></svg>
+                                                <LinkButton
+                                                    title="View on Marketplace"
+                                                    link={e.marketplaceURL}
+                                                    styles="text-[14px]"
+                                                />
+                                            </>
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+
+                    {/* SKELETON PLACEHOLDERS */}
+                    {[0, 1, 2].map((i) => (
+                        <div key={`skeleton-${i}`} className="flex flex-col gap-4 pb-8 sm:items-center items-start">
+                            <Divider styles="w-full mb-4" title="Coming Soon" />
+
+                            <div className="flex flex-wrap items-center gap-8 w-full">
+                                {/* IMAGE SKELETON */}
+                                <div className="flex items-center justify-center border border-(--divider) bg-(--white)/7 aspect-square h-60">
+                                    <div className="w-[80%] aspect-square bg-(--divider) rounded-sm" />
+                                </div>
+
+                                {/* TITLE CARD SKELETON */}
+                                <div className="flex flex-col gap-8 z-10 flex-1">
+                                    <div className="flex flex-col gap-4">
+                                        <div className="h-7 bg-(--divider) rounded-sm w-3/4" />
+                                        <div className="flex flex-col gap-2">
+                                            <div className="h-4 bg-(--divider) rounded-sm w-full" />
+                                            <div className="h-4 bg-(--divider) rounded-sm w-5/6" />
+                                            <div className="h-4 bg-(--divider) rounded-sm w-4/6" />
+                                        </div>
+                                    </div>
+                                    <div className="flex items-center gap-5">
+                                        <div className="h-4 bg-(--divider) rounded-sm w-16" />
+                                        <div className="h-4 bg-(--divider) rounded-sm w-36" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
                 </MotionDiv>
 
-                <MotionDiv variant="up" del={0.7} styles="flex flex-col gap-24 w-full">
-                    {items
-                        .filter((pass: Products, index: number, self: Products[]) =>
-                            pass.category && self.findIndex((e) => e.category === pass.category) === index
-                        )
-                        .map((pass: Products) => (
-                            <Catalogue key={pass.category} title={pass.category!}>
-                                {items
-                                    .filter((e: Products) => e.category === pass.category)
-                                    .map((e: Products) => (
-                                        <ItemCard
-                                            key={e._id}
-                                            title={e.title}
-                                            image={e.coverImage}
-                                            link={`/products/${e.slug!.current}`}
-                                            price={e.price}
+                {/* FEATURED CARD */}
+                <MotionDiv variant="right" del={0.5} styles="flex flex-1 md:py-32 md:pr-32 pr-0 pt-32 pb-0 md:h-screen md:sticky top-0 md:order-2 order-1">
+                    <div className="h-full w-full justify-center items-center border border-(--divider) bg-(--white)/7 flex flex-col">
+                        <ItemZoom
+                            styles="w-full h-full"
+                            image={featured.coverImage ? urlFor(featured.coverImage).format("webp").url() : ""}
+                            alt={featured.title ?? ""}
+                        />
+                        <div className="flex flex-col gap-8 z-10 w-full sm:p-12 p-10">
+                            <div className="flex flex-col gap-4">
+                                <div className="flex gap-4 items-center h-1.25 w-full justify-between"><Divider /><span className="tag">{featured.year}</span></div>
+                                <h2 className="text-start">{featured.title}</h2>
+                                <p className="line-clamp-2">{featured.description}</p>
+                            </div>
+
+                            <div className="flex gap-6 items-center">
+                                <LinkButton title="Preview" link={featured.preview} />
+                                {featured.marketplaceURL && (
+                                    <>
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="w-2.25" fill="currentColor" viewBox="-1 -1 7 12"><path stroke="var(--gray)" strokeWidth=".5" d="M.826 9.949H0L3.318.05h.826z" /></svg>
+                                        <LinkButton
+                                            title="View on Marketplace"
+                                            link={featured.marketplaceURL}
                                         />
-                                    ))}
-                            </Catalogue>
-                        ))}
+                                    </>
+                                )}
+                            </div>
+                        </div>
+                    </div>
                 </MotionDiv>
 
             </section>

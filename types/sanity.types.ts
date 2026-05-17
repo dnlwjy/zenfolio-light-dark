@@ -110,62 +110,34 @@ export type Slug = {
   source?: string;
 };
 
-export type Products = {
+export type SanityFileAssetReference = {
+  _ref: string;
+  _type: "reference";
+  _weak?: boolean;
+  [internalGroqTypeReferenceTo]?: "sanity.fileAsset";
+};
+
+export type Shop = {
   _id: string;
   _type: "shop";
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
   orderRank?: string;
-  title?: string;
+  title: string;
   slug?: Slug;
-  coverImage?: {
+  coverImage: {
     asset?: SanityImageAssetReference;
     media?: unknown;
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
     _type: "image";
   };
-  category?: "Web Templates" | "components";
-  price?: number;
-  description?: string;
-  content?: Array<
-    | {
-        children?: Array<{
-          marks?: Array<string>;
-          text?: string;
-          _type: "span";
-          _key: string;
-        }>;
-        style?:
-          | "normal"
-          | "h1"
-          | "h2"
-          | "h3"
-          | "h4"
-          | "h5"
-          | "h6"
-          | "blockquote";
-        listItem?: "bullet" | "number";
-        markDefs?: Array<{
-          href?: string;
-          _type: "link";
-          _key: string;
-        }>;
-        level?: number;
-        _type: "block";
-        _key: string;
-      }
-    | {
-        text?: string;
-        href?: string;
-        _type: "link";
-        _key: string;
-      }
-  >;
-  checkout?: string;
-  preview?: string;
+  description: string;
+  year: number;
+  preview: string;
   marketplaceURL?: string;
+  featured?: boolean;
 };
 
 export type SanityImagePaletteSwatch = {
@@ -271,7 +243,8 @@ export type AllSanitySchemaTypes =
   | SanityImageCrop
   | SanityImageHotspot
   | Slug
-  | Products
+  | SanityFileAssetReference
+  | Shop
   | SanityImagePaletteSwatch
   | SanityImagePalette
   | SanityImageDimensions

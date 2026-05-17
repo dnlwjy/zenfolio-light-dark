@@ -35,7 +35,7 @@ export default async function CaseStudies() {
                 
                 <MotionDiv variant="up" styles="flex flex-col gap-6 items-center w-full">
                     <h1>
-                        <span className="text-(--gray)">Collection of</span>
+                        <span className="text-(--gray)">Archive of</span>
                         <br />
                         Case Studies
                     </h1>

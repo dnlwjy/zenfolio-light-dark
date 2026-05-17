@@ -2,7 +2,8 @@
 
 import { withMagnifier } from "@/lib/withMagnifier"
 import Image from "next/image"
-import { itemShadow } from "./ItemCard"
+
+const itemShadow = "filter-[drop-shadow(0px_20px_16px_rgba(0,0,0,0.35))]"
 
 interface BaseImageProps {
     image: string

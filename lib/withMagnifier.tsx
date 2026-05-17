@@ -40,7 +40,7 @@ export const withMagnifier = <P extends { image: string; alt: string }>(
 
         return (
             <div
-                className="relative cursor-crosshair select-none w-[75%] aspect-square"
+                className="relative w-[75%] md:h-full cursor-crosshair md:aspect-auto aspect-square select-none"
                 onMouseMove={handleMouseMove}
                 onMouseLeave={() => setLens(l => ({ ...l, visible: false }))}
             >

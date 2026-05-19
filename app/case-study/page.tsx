@@ -10,7 +10,7 @@ export const dynamic = 'force-static'
 // 2. metadata (SEO / head)
 const description = "Archive of client-based projects from 2024 onward."
 export const metadata = generateSEO({
-    title: "Case Studies | Daniel Wijaya",
+    title: "Case Study | Daniel Wijaya",
     description,
     url: "/case-study",
 })

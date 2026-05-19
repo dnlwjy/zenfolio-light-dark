@@ -39,18 +39,16 @@ export default async function Builds() {
 
     return (
         <main>
-            <section className="md:flex-row flex-col md:items-start items-center gap-24 max-w-520 md:p-0 sm:px-12 px-6">
+            <section className="md:flex-row flex-col md:items-start items-center lg:gap-24 md:gap-16 gap-0 max-w-520 md:p-0 sm:px-12 px-6">
 
                 {/* NON FEATURED */}
-                <MotionDiv styles="flex flex-col flex-1 gap-4 max-w-240 w-full py-32 md:pl-32 pl-0 md:order-1 order-2">
-                    <span className="btn-text text-(--gray)">{description}</span>
+                <MotionDiv styles="flex flex-col flex-1 gap-0 max-w-240 w-full py-32 md:pl-32 pl-0 md:order-1 order-2">
+                    <span className="btn-text text-(--gray) md:flex hidden">{description}</span>
 
                     {nonFeatured.map((e) => (
                         <div key={e._id} className="flex flex-col gap-4 pb-8 sm:items-center items-start">
 
                             <Divider styles="w-full mb-4" title={e.year} />
-
-
                             <div className="flex flex-wrap items-center gap-8 w-full">
 
                                 {/* IMAGE */}
@@ -70,7 +68,7 @@ export default async function Builds() {
                                 <div className="flex flex-col gap-8 z-10 flex-1">
                                     <div className="flex flex-col gap-4">
                                         <h3 className="text-start">{e.title}</h3>
-                                        <p className="line-clamp-4 text-[18px] leading-[160%]">{e.description}</p>
+                                        <p className="line-clamp-4 lg:text-[18px] text-[16px] leading-[160%]">{e.description}</p>
                                     </div>
 
                                     <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
@@ -123,21 +121,22 @@ export default async function Builds() {
                 </MotionDiv>
 
                 {/* FEATURED CARD */}
-                <MotionDiv variant="right" del={0.5} styles="flex flex-1 md:py-32 md:pr-32 pr-0 pt-32 pb-0 md:h-screen md:sticky top-0 md:order-2 order-1">
+                <MotionDiv variant="right" del={0.5} styles="flex flex-col gap-8 flex-1 w-full lg:max-w-none max-w-[760px] md:pt-28 md:pb-12 md:pr-32 pr-0 pt-16 pb-0 md:h-screen md:sticky top-0 md:order-2 order-1">
+                    <span className="btn-text text-(--gray) md:hidden flex">{description}</span>
                     <div className="h-full w-full justify-center items-center border border-(--divider) bg-(--white)/7 flex flex-col">
                         <ItemZoom
                             styles="w-full h-full"
                             image={featured.coverImage ? urlFor(featured.coverImage).format("webp").url() : ""}
                             alt={featured.title ?? ""}
                         />
-                        <div className="flex flex-col gap-8 z-10 w-full sm:p-12 p-10">
+                        <div className="flex flex-col gap-8 z-10 w-full lg:p-12 md:p-9 sm:p-12 p-7">
                             <div className="flex flex-col gap-4">
                                 <div className="flex gap-4 items-center h-1.25 w-full justify-between"><Divider /><span className="tag">{featured.year}</span></div>
                                 <h2 className="text-start">{featured.title}</h2>
-                                <p className="line-clamp-2">{featured.description}</p>
+                                <p>{featured.description}</p>
                             </div>
 
-                            <div className="flex gap-6 items-center">
+                            <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
                                 <LinkButton title="Preview" link={featured.preview} />
                                 {featured.marketplaceURL && (
                                     <>

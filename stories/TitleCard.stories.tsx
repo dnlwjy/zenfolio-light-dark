@@ -55,7 +55,7 @@ export const AnimateFromRight: Story = {
   args: {
     title: "Product Photography",
     desc: "Product photography direction and post-processing for a luxury fashion brand.",
-    year: "2024",
+    year: 2024,
     link: "/case-study/photography",
     variant: "right",
   },
